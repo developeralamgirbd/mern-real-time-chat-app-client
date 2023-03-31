@@ -2,6 +2,7 @@ import React from 'react';
 import {Link, NavLink, Outlet} from "react-router-dom";
 import {useAuth} from "../context/AuthProvider";
 import {sessionRemove} from "../helpers/sessionHelper";
+import {checkPermission} from "../helpers/checkPermission";
 
 const Main = () => {
     const {auth} = useAuth();
@@ -49,7 +50,10 @@ const Main = () => {
 
                                    <li className="nav-item">
                                        <li className="nav-item">
-                                           <span className="nav-link" >{auth?.firstName.toUpperCase() + ' '+ auth?.lastName.toUpperCase()}</span>
+                                           {
+                                               checkPermission('can_create_user', auth?.permissions) ?
+                                                <span className="nav-link" >{auth?.firstName.toUpperCase() + ' '+ auth?.lastName.toUpperCase()}</span> : ''
+                                           }
                                        </li>
                                    </li>
                                    <li className="nav-item">
