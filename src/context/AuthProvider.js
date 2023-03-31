@@ -1,11 +1,12 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {getAuth, getToken} from "../helpers/sessionHelper";
 import axios from "axios";
+import {jwtDecode} from "../helpers/jwtDecode";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
-    const [auth, setAuth] = useState({});
+    const [auth, setAuth] = useState(null);
     const [token, setToken] = useState('');
     const [loading, setLoading] = useState(true);
 
@@ -16,7 +17,7 @@ const AuthProvider = ({children}) => {
         const localStorageToken = getToken();
 
         if (localStorageToken){
-            // setAuth(user);
+            setAuth(jwtDecode(localStorageToken));
             setToken(localStorageToken)
             setLoading(false);
         }

@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {loginRequest} from "../../APIRequest/userApi";
 import {sessionSetAuth, sessionSetToken} from "../../helpers/sessionHelper";
 import {useAuth} from "../../context/AuthProvider";
+import {jwtDecode} from "../../helpers/jwtDecode";
 
 
 const LoginForm = () => {
@@ -12,10 +13,10 @@ const LoginForm = () => {
     const onFinish = (values) => {
 
         loginRequest(values.email, values.password).then(res => {
-
             if (res){
                 sessionSetToken(res?.token);
-                setToken(res?.token)
+                setToken(res?.token);
+                setAuth(jwtDecode(res?.token));
                 window.location.href = '/'
             }
 

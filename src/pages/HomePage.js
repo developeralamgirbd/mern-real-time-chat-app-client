@@ -1,11 +1,12 @@
 import React from 'react';
+import Messenger from "../components/chat/Messenger";
 
 
 const HomePage = () => {
 
     return (
         <>
-            <h1>Home page</h1>
+           <Messenger/>
 
         </>
     );

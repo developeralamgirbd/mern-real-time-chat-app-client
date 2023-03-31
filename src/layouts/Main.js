@@ -4,7 +4,7 @@ import {useAuth} from "../context/AuthProvider";
 import {sessionRemove} from "../helpers/sessionHelper";
 
 const Main = () => {
-    const {auth, token} = useAuth();
+    const {auth} = useAuth();
     const logout = ()=>{
         sessionRemove();
     }
@@ -45,7 +45,13 @@ const Main = () => {
 
                            <ul className="navbar-nav">
                            {
-                               token ? <>
+                               auth ? <>
+
+                                   <li className="nav-item">
+                                       <li className="nav-item">
+                                           <span className="nav-link" >{auth?.firstName.toUpperCase() + ' '+ auth?.lastName.toUpperCase()}</span>
+                                       </li>
+                                   </li>
                                    <li className="nav-item">
                                        <li className="nav-item">
                                            <a href='#' className="nav-link" onClick={logout}>Logout</a>
@@ -70,7 +76,7 @@ const Main = () => {
                    </div>
                </nav>
            </header>
-
+            {auth ? JSON.stringify(auth): ''}
             <div className="container">
                 <Outlet/>
             </div>
